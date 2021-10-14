@@ -24,6 +24,8 @@
     "styled-components": "^5.3.1"
   },
   "devDependencies": {
+    "@types/react": "^17.0.26",
+    "@types/react-router": "^5.1.16",
     "ajv": "^6.9.1",
     "cross-env": "^5.2.0",
     "eslint": "^6.8.0",
