@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
             const accessToken = jwt.sign({
                 id: user._id,
                 isAdmin: user.isAdmin,
-            },process.env.JWT_SECRET, { expiresIn: '1h' });
+            },process.env.JWT_SECRET, { expiresIn: '10s' });
 
             const { password, ...others } = user._doc; // get the user data without the password ; 
             //return the user

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
+import { Link } from 'react-router-dom';
 
 const Circle = styled.div`
     width: 250px;
@@ -59,17 +60,20 @@ const Icon = styled.div`
     }
 `
 
-const ProductItem = ({product}) => {
+const ProductItem = ({ product }) => {
+
     return (
-       <Container>
-           <Circle/>
-           <Image src={product.img}/>
-           <Info>
-               <Icon>
-                   <ShoppingCartTwoToneIcon/>
-               </Icon>
-           </Info>
-       </Container>
+        <Container>
+            <Circle />
+            <Image src={product.image} />
+            <Info>
+                <Icon>
+                    <Link to={`/product/${product._id}`}>
+                        <ShoppingCartTwoToneIcon />
+                    </Link>
+                </Icon>
+            </Info>
+        </Container>
     )
 }
 

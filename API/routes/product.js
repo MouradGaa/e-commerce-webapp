@@ -42,7 +42,7 @@ router.delete("/:id",VerifyTokenAndAdmin, async(req,res)=>{
 
 });
 
-//get product 
+//get single product 
 router.get("/:id",async(req,res)=>{
     try{
         const product = await Product.findById(req.params.id);
@@ -60,17 +60,18 @@ router.get("/",async(req,res)=>{
     try{
         let products ;
         if(queryNew){
-            products = await Product.find().sort({createdAt:-1}).limit(10);
+            products = await Product.find().sort({createdAt:-1}).limit(1);
         }
         else if(queryCategory){
             products = await Product.find({
-                category:{
+                categories:{
                     $in : [queryCategory]
                 }});
         }
         else {
             products = await Product.find();
         }
+        res.status(200).send(products);
     }catch(err){
         res.status(400).send(err);
     }   

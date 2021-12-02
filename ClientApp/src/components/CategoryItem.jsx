@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import React from 'react'
-
+import {Link} from 'react-router-dom'
 
 const Image = styled.img`
     width: 100%;
@@ -51,6 +51,7 @@ const Container = styled.div`
 const CategoryItem = ({item}) => {
     return (
         <Container>
+        <Link to={`/products/${item.cat}`}>
             <Image src={item.img}/>
             <Info>
                 <Title>
@@ -58,6 +59,7 @@ const CategoryItem = ({item}) => {
                 </Title>
                 <Button>BUY NOW</Button>
             </Info>
+        </Link>
         </Container>
     )
 }

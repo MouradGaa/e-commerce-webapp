@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Announcement from '../components/Announcement'
 import NavBar from '../components/NavBar'
 import styled from 'styled-components'
 import Newsletter from '../components/Newsletter'
 import Footer from '../components/Footer'
-import { Add, Filter, Remove } from '@material-ui/icons'
-
+import { Add, Remove } from '@material-ui/icons'
+import { AxiospublicRequest } from '../requestMethods'
+import { useLocation } from 'react-router-dom';
+import { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../redux/cartRedux'
 
 const Container = styled.div`
     
@@ -68,35 +72,80 @@ const Button = styled.button`
         color: white;
     }
 `
+const Hover = styled.div`
+    cursor: pointer;
+ `
 
 const SingleProduct = () => {
+    const location = useLocation();
+    const id = location.pathname.split('/')[2];
+    const [product, setProduct] = useState({});
+
+    const [amount, setAmount] = useState(1);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const getProduct = async () => {
+            try {
+                const response = await AxiospublicRequest.get('/products/' + id);
+                setProduct(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        getProduct();
+        console.log(product);
+    }, [id]);
+
+    // handle add and remove amount
+    const handleAmount = (action) => {
+        if (action === "minus") {
+            if (amount > 1) {
+                setAmount(amount - 1);
+            }
+        } else {
+            setAmount(amount + 1);
+        }
+    }
+
+    //handle add to cart
+    const handleAddToCart = async () => {
+        dispatch(addProduct({...product, amount}));
+    }
+
+
     return (
         <Container>
-            <NavBar/>
-            <Announcement/>
+            <NavBar />
+            <Announcement />
             <Wrapper>
                 <ImageContainer>
-                    <Image src="https://images-na.ssl-images-amazon.com/images/I/81SIYgZhwFL.jpg"/>
+                    <Image src={product.image} />
                 </ImageContainer>
                 <DescriptionContainer>
-                    <Title>hgcdzHGddgZJHKd</Title>
+                    <Title>{product.title}</Title>
                     <Description>
-                        blabalblablablalbalbablalbalbalbalbalbalbal
+                        {product.description}
                     </Description>
-                    <Price>100 $</Price>
+                    <Price>{product.price} $</Price>
                     <AddContainer>
                         <AmmountContainer>
-                            <Remove/>
-                            <Amount>2</Amount>
-                            <Add/>
+                            <Hover>
+                                <Remove onClick={() => handleAmount("minus")} />
+                            </Hover>
+                            <Amount>{amount}</Amount>
+                            <Hover>
+                                <Add onClick={() => handleAmount("add")} />
+                            </Hover>
                         </AmmountContainer>
-                        <Button>ADD TO CART</Button>
-                    </AddContainer>  
+                        <Button onClick ={handleAddToCart}>ADD TO CART</Button>
+                    </AddContainer>
                 </DescriptionContainer>
-
             </Wrapper>
-            <Newsletter/>
-            <Footer/>
+            <Newsletter />
+            <Footer />
         </Container>
     )
 }

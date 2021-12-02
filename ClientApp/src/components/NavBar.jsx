@@ -3,6 +3,10 @@ import styled from 'styled-components'
 import {Search} from "@material-ui/icons"
 import { Badge } from '@material-ui/core'
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { color } from '@mui/material/node_modules/@mui/system';
+
 
 const Container = styled.div`
     height : 60px;
@@ -46,6 +50,7 @@ const Input = styled.input`
 `
 const Logo = styled.h1`
     font-weight: bold;
+    cursor: pointer;
 `
 const MenuItem = styled.div`
     font-size: 14px;
@@ -55,6 +60,9 @@ const MenuItem = styled.div`
 
 
 const NavBar = () => {
+    const quantity = useSelector(state => state.cart.quantity);
+
+
     return (
        <Container>
         <Wrapper>
@@ -65,19 +73,23 @@ const NavBar = () => {
                     <Input/>
                 </SearchContainer>
             </Left>
-            <Center>
+            <Center> 
                 <Logo>
+                <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
                     .Bloom 
-                </Logo>
+                    </Link>
+                </Logo>  
             </Center>
             <Right>
                 <MenuItem>REGISTER</MenuItem>
                 <MenuItem>SIGN IN</MenuItem>
+                <Link to="/cart">
                 <MenuItem>
-                    <Badge badgeContent={4} color="primary">
+                    <Badge badgeContent={quantity} color="primary">
                         <ShoppingCartTwoToneIcon/>
                     </Badge>
                 </MenuItem>
+                </Link>
             </Right>
         </Wrapper> 
        </Container>

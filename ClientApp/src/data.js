@@ -29,16 +29,19 @@ export const categories = [
         id: 1,
         img: "https://images.squarespace-cdn.com/content/v1/56df092c4c2f851a20d406d2/1573148438894-G6G9AZ9JIV7MCV6YN678/kabuki-11x14+%282%29-fullsize.png?format=1500w",
         title: "PAINTING",
+        cat: "painting"
     },
     {
         id: 2,
         img: "https://mymodernmet.com/wp/wp-content/uploads/2018/03/hiro-goto-japan-photography-13.jpg",
         title: "PHOTOGRAPH",
+        cat: "photograph"
     },
     {
         id: 3,
         img: "https://preview.redd.it/olgk234ng3h61.jpg?width=640&crop=smart&auto=webp&s=e5fcaaed7bfdcb99bd8d9f590a2d33f3b374818f",
         title: "PRINT",
+        cat: "print"
     },
 ];
 
