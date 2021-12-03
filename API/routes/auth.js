@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
             const accessToken = jwt.sign({
                 id: user._id,
                 isAdmin: user.isAdmin,
-            },process.env.JWT_SECRET, { expiresIn: '10s' });
+            },process.env.JWT_SECRET, { expiresIn: 100 });
 
             const { password, ...others } = user._doc; // get the user data without the password ; 
             //return the user
@@ -46,6 +46,18 @@ router.post('/login', async (req, res) => {
     }
 });
 
+//logout user
+router.post('/logout', async (req, res) => {
+    try {
+        const user = await User.findById(req.body.id);      
+        user.accessToken = null;
+        await user.save();
+        res.status(200).json("Logout successfully");
+    }
+    catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 
 

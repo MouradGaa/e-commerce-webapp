@@ -87,7 +87,7 @@ const Register = () => {
         isAdmin : false,
       };
     try {
-      const response = await AxiospublicRequest.post("/auth/register", user);
+      await AxiospublicRequest.post("/auth/register", user);
       history.push("/login");
     } catch (error) {
       console.log(error);

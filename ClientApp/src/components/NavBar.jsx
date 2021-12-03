@@ -1,11 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import {Search} from "@material-ui/icons"
+import { Search } from "@material-ui/icons"
 import { Badge } from '@material-ui/core'
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { color } from '@mui/material/node_modules/@mui/system';
 
 
 const Container = styled.div`
@@ -59,40 +58,46 @@ const MenuItem = styled.div`
 `
 
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
     const quantity = useSelector(state => state.cart.quantity);
 
-
     return (
-       <Container>
-        <Wrapper>
-            <Left>
-                <Language>EN</Language>
-                <SearchContainer>
-                    <Search/>
-                    <Input/>
-                </SearchContainer>
-            </Left>
-            <Center> 
-                <Logo>
-                <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-                    .Bloom 
+        <Container>
+            <Wrapper>
+                <Left>
+                    <Language>EN</Language>
+                    <SearchContainer>
+                        <Search />
+                        <Input />
+                    </SearchContainer>
+                </Left>
+                <Center>
+                    <Logo>
+                        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            .Bloom
+                        </Link>
+                    </Logo>
+                </Center>
+                <Right>
+                    <Link to="/register" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <MenuItem>REGISTER</MenuItem>
                     </Link>
-                </Logo>  
-            </Center>
-            <Right>
-                <MenuItem>REGISTER</MenuItem>
-                <MenuItem>SIGN IN</MenuItem>
-                <Link to="/cart">
-                <MenuItem>
-                    <Badge badgeContent={quantity} color="primary">
-                        <ShoppingCartTwoToneIcon/>
-                    </Badge>
-                </MenuItem>
-                </Link>
-            </Right>
-        </Wrapper> 
-       </Container>
+                    <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <MenuItem>LOGIN</MenuItem>
+                    </Link>
+                    <Link to="/newproduct" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        {user && user.isAdmin && <MenuItem>ADD PRODUCTS</MenuItem>}
+                    </Link>
+                    <Link to="/cart">
+                        <MenuItem>
+                            <Badge badgeContent={quantity} color="primary">
+                                <ShoppingCartTwoToneIcon />
+                            </Badge>
+                        </MenuItem>
+                    </Link>
+                </Right>
+            </Wrapper>
+        </Container>
     )
 }
 

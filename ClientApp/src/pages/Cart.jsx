@@ -43,14 +43,6 @@ const TopButton = styled.button`
   color: ${(props) => props.type === "filled" && "white"};
 `;
 
-const TopTexts = styled.div`
-
-`;
-const TopText = styled.span`
-  text-decoration: underline;
-  cursor: pointer;
-  margin: 0px 10px;
-`;
 
 const Bottom = styled.div`
   display: flex;
@@ -161,6 +153,8 @@ const Cart = () => {
     setStripeToken(token);
   }
 
+ 
+
   console.log(stripeToken);
   console.log(STRIPE_KEY);
 
@@ -169,14 +163,14 @@ const Cart = () => {
       try {
         const response = await AxiosprivateRequest.post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: 100,
+          amount: cart.totalPrice * 100,
           currency: "usd",
         });
         console.log("success!");
-        history.push("/success", { 
+        history.push("/success", {
           Stripedata: response.data,
           products: cart
-        }); 
+        });
       } catch (err) {
         console.log(err);
       };
@@ -194,13 +188,9 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR CART</Title>
         <Top>
-        <Link to="/">
-          <TopButton>CONTINUE SHOPPING</TopButton>
-        </Link>
-          <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your Wishlist (0)</TopText>
-          </TopTexts>
+          <Link to="/">
+            <TopButton>CONTINUE SHOPPING</TopButton>
+          </Link>
         </Top>
         <Bottom>
           <Info>
