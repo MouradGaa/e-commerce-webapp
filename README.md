@@ -1,6 +1,6 @@
 # Artworks E-Commerce Web App Using MERN stack
 
-An [e-commerce web application](https://magical-klepon-ac2c36.netlify.app/) built using MERN stack, Firebase and Stripe.
+An [e-commerce web application](https://magical-klepon-ac2c36.netlify.app/) built using MERN stack, Redux, Firebase and Stripe.
 
 ## Description
 
